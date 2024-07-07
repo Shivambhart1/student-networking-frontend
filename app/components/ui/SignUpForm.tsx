@@ -5,6 +5,8 @@ import { Label } from "./label";
 import { Input } from "./input";
 import { cn } from "@/utils/cn";
 import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function SignupFormDemo() {
   const HandleSubmit = async (e: any) => {
@@ -13,12 +15,35 @@ export function SignupFormDemo() {
     const backend_PORT = 5000;
 
     try {
-      await axios.post(`http://localhost:${backend_PORT}/api/signup/`, {
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
+      const res = await axios.post(
+        `http://localhost:${backend_PORT}/api/signup/`,
+        {
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        }
+      );
+      toast(res.data.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
       });
     } catch (error) {
+      toast((error as any).response.data.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       console.log(error);
     }
   };
@@ -42,7 +67,6 @@ export function SignupFormDemo() {
         Login to project_name if you can because we don&apos;t have a login flow
         yet
       </p>
-
       <form className="my-8" onSubmit={HandleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>

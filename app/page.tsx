@@ -176,6 +176,7 @@ export default function Home() {
       <NavContainer>
         <h1>LOGO</h1>
         <PlaceholdersAndVanishInputDemo />
+        <a href="/signup">Sign up</a>
       </NavContainer>
       <HeroSection className="mt-20">
         <FeedComponent />
