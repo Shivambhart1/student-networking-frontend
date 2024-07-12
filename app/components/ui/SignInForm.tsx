@@ -8,44 +8,44 @@ import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export function SignupFormDemo() {
+export function SignInFormDemo() {
   const HandleSubmit = async (e: any) => {
     e.preventDefault();
 
     const backend_PORT = 5000;
 
-    try {
-      const res = await axios.post(
-        `http://localhost:${backend_PORT}/api/signup/`,
-        {
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-        }
-      );
-      toast(res.data.message, {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-    } catch (error) {
-      toast((error as any).response.data.message, {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-      console.log(error);
-    }
+    // try {
+    //   const res = await axios.post(
+    //     `http://localhost:${backend_PORT}/api/signup/`,
+    //     {
+    //       username: formData.username,
+    //       email: formData.email,
+    //       password: formData.password,
+    //     }
+    //   );
+    //   toast(res.data.message, {
+    //     position: "bottom-right",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "dark",
+    //   });
+    // } catch (error) {
+    //   toast((error as any).response.data.message, {
+    //     position: "bottom-right",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "dark",
+    //   });
+    //   console.log(error);
+    // }
   };
 
   const [formData, setFormData] = useState({
@@ -68,24 +68,11 @@ export function SignupFormDemo() {
         yet
       </p>
       <form className="my-8" onSubmit={HandleSubmit}>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label htmlFor="firstname">Full name</Label>
-            <Input
-              id="firstname"
-              placeholder="Sachin"
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-            />
-          </LabelInputContainer>
-        </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Acharya Email Address</Label>
           <Input
             id="email"
-            placeholder="projectmayhem@fc.com"
+            placeholder="@acharya.ac.in"
             type="email"
             name="email"
             value={formData.email}
@@ -108,16 +95,19 @@ export function SignupFormDemo() {
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
         >
-          Sign up &rarr;
+          Sign in &rarr;
           <BottomGradient />
         </button>
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+
+        <div className="flex flex-col space-y-4"></div>
       </form>
       <div className="text-center">
-        <h2>ALready have an account ?</h2>
-        <a href="/sign-in" className="text-blue-700 hover:underline">
-          Sign In
+        {" "}
+        <h2 className="text-center">Don't have an account?</h2>
+        <a href="/signup" className="text-blue-700 hover:underline">
+          Sign Up
         </a>
       </div>
     </div>

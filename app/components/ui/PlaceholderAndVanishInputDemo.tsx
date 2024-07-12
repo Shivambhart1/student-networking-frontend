@@ -1,6 +1,4 @@
 import { PlaceholdersAndVanishInput } from "./placeholders-and-vanish-input";
-import { warn } from "console";
-import FeedComponent from "../FeedComponent";
 import { HoveredLink, MenuItem, Menu, ProductItem } from "./navbar-menu";
 import { useState } from "react";
 import { cn } from "@/utils/cn";
@@ -135,7 +133,7 @@ export function PlaceholdersAndVanishInputDemo() {
     console.log("submitted");
   };
   return (
-    <div className="flex w-full flex-col justify-center items-center px-4">
+    <div className="flex w-[80%] flex-col justify-center items-center px-4">
       <PlaceholdersAndVanishInput
         placeholders={placeholders}
         onChange={handleChange}

@@ -1,38 +1,20 @@
 "use client";
-import Image from "next/image";
 
-import React, { useState } from "react";
-import {
-  HoveredLink,
-  Menu,
-  MenuItem,
-  ProductItem,
-} from "./components/ui/navbar-menu";
-import { cn } from "@/utils/cn";
 import { NavContainer, HeroSection } from "./styledComponents";
-import { CardBody, CardContainer, CardItem } from "./components/ui/3d-card";
-import Link from "next/link";
-import fearOfGod from "../public/fearOfGod.jpg";
-import { BentoGrid, BentoGridItem } from "./components/ui/bento-gris";
-import {
-  IconArrowWaveRightUp,
-  IconBoxAlignRightFilled,
-  IconBoxAlignTopLeft,
-  IconClipboardCopy,
-  IconFileBroken,
-  IconSignature,
-  IconTableColumn,
-} from "@tabler/icons-react";
 import { PlaceholdersAndVanishInputDemo } from "./components/ui/PlaceholderAndVanishInputDemo";
-import FeedComponent from "./components/FeedComponent";
+import FeedComponent from "./components/ui/FeedComponent";
+import { UserButton, UserProfile } from "@clerk/nextjs";
 
 export default function Home() {
   return (
     <>
       <NavContainer>
-        <h1>LOGO</h1>
+        <UserButton />
         <PlaceholdersAndVanishInputDemo />
-        <a href="/signup">Sign up</a>
+        <div className="flex gap-4">
+          <a href="/sign-up">Sign up</a>
+          <a href="/sign-in"> Sign In</a>
+        </div>
       </NavContainer>
       <HeroSection className="mt-20">
         <FeedComponent />
