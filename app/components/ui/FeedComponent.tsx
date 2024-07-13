@@ -8,7 +8,7 @@ import Image from "next/image";
 
 interface FeedContainerProps {
   comment: string;
-  image?: string;
+  image?: string | null;
 }
 
 const FeedContainer: React.FC<FeedContainerProps> = ({ comment, image }) => {
@@ -48,7 +48,7 @@ const FeedContainer: React.FC<FeedContainerProps> = ({ comment, image }) => {
 
 interface CommentItem {
   comment: string;
-  image?: string;
+  image?: string | null;
 }
 
 const FeedComponent: React.FC = () => {
