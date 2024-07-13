@@ -21,6 +21,8 @@ const FeedContainer: React.FC<FeedContainerProps> = ({ comment, image }) => {
         </div>
         <div className="flex-grow">
           <div className="flex gap-1">
+            {" "}
+            sachin singh
             <span className="font-semibold"></span>
             <span className="text-xs self-center">{user?.fullName}</span>
           </div>
@@ -30,7 +32,9 @@ const FeedContainer: React.FC<FeedContainerProps> = ({ comment, image }) => {
               <Image
                 src={image}
                 alt="post content"
-                className="max-w-full h-auto mt-2"
+                className="w-full h-auto mt-2"
+                width={100}
+                height={100}
               />
             )}
           </div>
