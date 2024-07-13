@@ -17,8 +17,6 @@ const FeedContainer: React.FC<FeedContainerProps> = ({ comment, image }) => {
     <div className="p-3">
       <div className="flex gap-3">
         <div>
-          {/* <Image src={user?. ?? ""} alt="" />
-           */}
           <UserButton />
         </div>
         <div className="flex-grow">
