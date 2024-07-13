@@ -23,6 +23,8 @@ const FeedContainer: React.FC<FeedContainerProps> = ({ comment, image }) => {
         </div>
         <div className="flex-grow">
           <div className="flex gap-1">
+            {" "}
+            sachin singh
             <span className="font-semibold"></span>
             <span className="text-xs self-center">{user?.fullName}</span>
           </div>
