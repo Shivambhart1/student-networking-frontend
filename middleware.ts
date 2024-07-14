@@ -4,6 +4,7 @@ const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/forum(.*)"]);
 
 export default clerkMiddleware((auth, req) => {
   if (isProtectedRoute(req)) auth().protect();
+  publicRoutes: ["/", "/forget-password","/api/webhooks/clerk"]
 });
 
 export const config = {
