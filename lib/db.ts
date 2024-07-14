@@ -2,15 +2,15 @@ import mongoose, { Mongoose } from "mongoose";
 
 const MONGODB_URL = process.env.MONGOBD_URL!;
 
-interface MongooseConn{
-    conn: Mongoose | null;
-    promise: Promise<Mongoose> | null;
+interface MongooseConn {
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
 }
 
 let cached: MongooseConn = (global as any).mongoose;
 
 if (!cached) {
-  cached = (global as any).mongpose = {
+  cached = (global as any).mongoose = {
     conn: null,
     promise: null,
   };
