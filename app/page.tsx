@@ -17,7 +17,7 @@ import {
 export default function Home() {
   const { user } = useUser();
   return (
-    <>
+    <div>
       <Navbar isBordered>
         <NavbarContent className="sm:flex gap-4" justify="center">
           <NavbarItem>
@@ -34,6 +34,6 @@ export default function Home() {
       <HeroSection className="mt-20">
         <FeedComponent />
       </HeroSection>
-    </>
+    </div>
   );
 }

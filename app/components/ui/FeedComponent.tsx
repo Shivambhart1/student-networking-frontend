@@ -85,7 +85,7 @@ const FeedComponent: React.FC = () => {
         image: selectedImage,
         userFullName: user?.fullName,
       };
-      const updatedComments = [...comments, newComment];
+      const updatedComments = [newComment, ...comments];
       setComments(updatedComments);
       setComment("");
       setSelectedImage(null);
@@ -147,7 +147,7 @@ const FeedComponent: React.FC = () => {
             />
           </div>
           <button
-            className="bg-blue-600 text-white px-5 py-2 rounded-full"
+            className="bg-slate-700 text-white px-10 py-2 font-Inconsolata rounded"
             onClick={handlePost}
           >
             Post

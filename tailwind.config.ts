@@ -1,5 +1,10 @@
 const { nextui } = require("@nextui-org/react");
-import { Anton, Fira_Code, Fira_Sans as FiraSans } from "next/font/google";
+import {
+  Anton,
+  Fira_Code,
+  Fira_Sans as FiraSans,
+  Inconsolata,
+} from "next/font/google";
 import type { Config } from "tailwindcss";
 const {
   default: flattenColorPalette,
@@ -18,6 +23,7 @@ const config: Config = {
       jetbrains: ["JetBrains Mono", "monospace"],
       Anton: ["Anton", "sans-serif"],
       FiraSans: ["Fira Sans", "sans-serif"],
+      Inconsolata: ["Inconsolata", "monospace"],
     },
     extend: {
       keyframes: {
