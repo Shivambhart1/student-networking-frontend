@@ -8,6 +8,8 @@ export const NavContainer = styled.nav`
 `;
 
 export const HeroSection = styled.div`
+  padding: 40px;
+  font-family: "Barlow", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;

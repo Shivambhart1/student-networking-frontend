@@ -1,18 +1,22 @@
 import { UserButton } from "@clerk/nextjs";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useUser } from "@clerk/nextjs";
-// import Avatar from "./public/Avatar.svg";
+import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 import { FaImage, FaVideo, FaPoll, FaHeart, FaComment } from "react-icons/fa";
-// import {} from "../../fontawesome-free-6.5.2-web/js/fontawesome";
 import Image from "next/image";
 
 interface FeedContainerProps {
   comment: string;
   image?: string | null;
+  userFullName?: string | null | undefined;
 }
 
-const FeedContainer: React.FC<FeedContainerProps> = ({ comment, image }) => {
-  const { isLoaded, isSignedIn, user } = useUser();
+const FeedContainer: React.FC<FeedContainerProps> = ({
+  comment,
+  image,
+  userFullName,
+}) => {
   return (
     <div className="p-3">
       <div className="flex gap-3">
@@ -21,10 +25,7 @@ const FeedContainer: React.FC<FeedContainerProps> = ({ comment, image }) => {
         </div>
         <div className="flex-grow">
           <div className="flex gap-1">
-            {" "}
-            sachin singh
-            <span className="font-semibold"></span>
-            <span className="text-xs self-center">{user?.fullName}</span>
+            <span className="font-semibold">{userFullName}</span>
           </div>
           <div className="text-wrapper overflow-auto">
             <p className="text-wrap w-full">{comment}</p>
@@ -51,19 +52,55 @@ const FeedContainer: React.FC<FeedContainerProps> = ({ comment, image }) => {
 interface CommentItem {
   comment: string;
   image?: string | null;
+  userFullName?: string | null;
 }
 
 const FeedComponent: React.FC = () => {
+  const { isLoaded, isSignedIn, user } = useUser();
   const [comment, setComment] = useState<string>("");
   const [comments, setComments] = useState<CommentItem[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handlePost = () => {
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const storedComments = localStorage.getItem("comments");
+        if (storedComments) {
+          const parsedComments: CommentItem[] = JSON.parse(storedComments);
+          setComments(parsedComments);
+        }
+      } catch (err) {
+        console.error(`Error parsing comments from localStorage: ${err}`);
+      }
+    };
+
+    fetchComments();
+  }, []);
+
+  const handlePost = async () => {
     if (comment.trim() !== "" || selectedImage) {
-      setComments([{ comment, image: selectedImage }, ...comments]);
+      const newComment = {
+        comment,
+        image: selectedImage,
+        userFullName: user?.fullName,
+      };
+      const updatedComments = [...comments, newComment];
+      setComments(updatedComments);
       setComment("");
       setSelectedImage(null);
+      localStorage.setItem("comments", JSON.stringify(updatedComments));
+
+      try {
+        const res = await axios.post("/posts/create-post", {
+          id: uuidv4(),
+          comment,
+          image: selectedImage,
+          userFullName: user?.fullName,
+        });
+      } catch (error) {
+        console.error(`Error posting comment: ${error}`);
+      }
     }
   };
 
@@ -95,15 +132,15 @@ const FeedComponent: React.FC = () => {
       <hr />
       <div className="pt-5">
         <div className="flex justify-between gap-4 items-center text-blue-600">
-          <div className="">
+          <div>
             <input
               type="file"
               accept="image/*"
               className="file:mr-4 file:py-2 file:px-4
-          file:rounded-full file:border-0
-          file:text-sm file:font-semibold
-          file:bg-violet-50 file:text-violet-700
-          hover:file:bg-violet-100"
+              file:rounded-full file:border-0
+              file:text-sm file:font-semibold
+              file:bg-violet-50 file:text-violet-700
+              hover:file:bg-violet-100"
               ref={fileInputRef}
               onChange={handleImageChange}
             />
@@ -117,11 +154,12 @@ const FeedComponent: React.FC = () => {
         </div>
       </div>
       <div className="flex flex-col gap-5 overflow-y-auto max-h-96">
-        {comments.map((item, index) => (
+        {comments.map((item: CommentItem, index: number) => (
           <FeedContainer
             key={index}
             comment={item.comment}
             image={item.image}
+            userFullName={item.userFullName}
           />
         ))}
       </div>
