@@ -6,6 +6,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import "./globals.css";
+import { Providers } from "./providers";
 export default function RootLayout({
   children,
 }: {
@@ -15,9 +16,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body>
-          {/* <UserButton /> */}
-
-          {children}
+          <Providers>{children}</Providers>
         </body>
       </html>
     </ClerkProvider>

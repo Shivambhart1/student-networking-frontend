@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { FaImage, FaVideo, FaPoll, FaHeart, FaComment } from "react-icons/fa";
 import Image from "next/image";
+import { Textarea, User } from "@nextui-org/react";
 
 interface FeedContainerProps {
   comment: string;
@@ -17,18 +18,21 @@ const FeedContainer: React.FC<FeedContainerProps> = ({
   image,
   userFullName,
 }) => {
+  const { user } = useUser();
   return (
     <div className="p-3">
       <div className="flex gap-3">
-        <div>
-          <UserButton />
-        </div>
+        <img src={user?.imageUrl} alt="" className="rounded-full w-10 h-10" />
+
         <div className="flex-grow">
           <div className="flex gap-1">
-            <span className="font-semibold">{userFullName}</span>
+            <span className="font-semibold">{user?.fullName}</span>
+            <span className="text-sm text-gray-600 content-center">
+              @{user?.username}
+            </span>
           </div>
-          <div className="text-wrapper overflow-auto">
-            <p className="text-wrap w-full">{comment}</p>
+          <div className="text-wrapper">
+            <p className="text-wrap break-all">{comment}</p>
             {image && (
               <Image
                 src={image}
@@ -38,10 +42,6 @@ const FeedContainer: React.FC<FeedContainerProps> = ({
                 height={100}
               />
             )}
-          </div>
-          <div className="flex gap-3 mt-3 justify-around">
-            <FaComment className="cursor-pointer" />
-            <FaHeart className="cursor-pointer" />
           </div>
         </div>
       </div>
@@ -56,11 +56,11 @@ interface CommentItem {
 }
 
 const FeedComponent: React.FC = () => {
-  const { isLoaded, isSignedIn, user } = useUser();
   const [comment, setComment] = useState<string>("");
   const [comments, setComments] = useState<CommentItem[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -118,14 +118,15 @@ const FeedComponent: React.FC = () => {
   };
 
   return (
-    <div className="post-feed border border-gray-300 p-5 flex flex-col gap-5 w-[60%] max-h-screen overflow-y-auto">
+    <div className="post-feed border rounded-large border-gray-300 p-5 flex flex-col gap-5 w-[60%] h-auto max-[768px]:w-full max-[640px]:w-full">
       <div className="flex gap-3">
         <UserButton />
-        <input
-          type="text"
+        <Textarea
+          isRequired
+          variant="underlined"
           value={comment}
-          className="p-4 w-full"
-          placeholder="What's for Today?"
+          label="What's for Today?"
+          className="max-w-full"
           onChange={(e) => setComment(e.target.value)}
         />
       </div>
@@ -153,7 +154,7 @@ const FeedComponent: React.FC = () => {
           </button>
         </div>
       </div>
-      <div className="flex flex-col gap-5 overflow-y-auto max-h-96">
+      <div className="flex flex-col gap-5">
         {comments.map((item: CommentItem, index: number) => (
           <FeedContainer
             key={index}

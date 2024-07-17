@@ -24,8 +24,9 @@ export async function POST(req: Request) {
     const userNames = filteredUsers.map((user) => ({
       id: user.id,
       username: user.username,
-      fullName: `${user.firstName} ${user.lastName}`,
-      email: user.emailAddresses[0]?.emailAddress, // Assuming the email is available here
+      fullName: `${user.fullName}`,
+      email: user.emailAddresses[0]?.emailAddress,
+      imageUrl: user.imageUrl,
     }));
 
     console.log("Filtered users:", userNames);

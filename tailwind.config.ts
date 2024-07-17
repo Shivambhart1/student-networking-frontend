@@ -1,4 +1,5 @@
-import { Anton } from "next/font/google";
+const { nextui } = require("@nextui-org/react");
+import { Anton, Fira_Code, Fira_Sans as FiraSans } from "next/font/google";
 import type { Config } from "tailwindcss";
 const {
   default: flattenColorPalette,
@@ -9,12 +10,14 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: "class",
   theme: {
     fontFamily: {
       jetbrains: ["JetBrains Mono", "monospace"],
       Anton: ["Anton", "sans-serif"],
+      FiraSans: ["Fira Sans", "sans-serif"],
     },
     extend: {
       keyframes: {
@@ -33,7 +36,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [addVariablesForColors],
+  plugins: [addVariablesForColors, nextui()],
 }; // This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));
