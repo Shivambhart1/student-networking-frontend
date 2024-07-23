@@ -17,7 +17,7 @@ export const DropdownContent = ({ variant, color }: any) => {
           <p className="font-jetbrains">WELCOME: {user.fullName}</p>
         ) : (
           <Button color={color} variant={variant} className="capitalize">
-            Authorise
+            Sign up / Sign in
           </Button>
         )}
       </DropdownTrigger>
@@ -26,7 +26,9 @@ export const DropdownContent = ({ variant, color }: any) => {
         color={color}
         variant={variant}
       >
-        <DropdownItem href="/sign-up">Sign up</DropdownItem>
+        <DropdownItem href="/sign-up">
+          Sign up or Create an account
+        </DropdownItem>
         <DropdownItem href="/sign-in">Sign in</DropdownItem>
       </DropdownMenu>
     </Dropdown>

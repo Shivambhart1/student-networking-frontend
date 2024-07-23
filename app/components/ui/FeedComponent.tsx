@@ -6,7 +6,14 @@ import axios from "axios";
 import { FaImage, FaVideo, FaPoll, FaHeart, FaComment } from "react-icons/fa";
 import Image from "next/image";
 import { Textarea, User } from "@nextui-org/react";
-
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Avatar,
+  Button,
+} from "@nextui-org/react";
 interface FeedContainerProps {
   comment: string;
   image?: string | null;
@@ -37,7 +44,7 @@ const FeedContainer: React.FC<FeedContainerProps> = ({
               <Image
                 src={image}
                 alt="post content"
-                className="w-full h-auto mt-2"
+                className="w-full h-auto mt-2 rounded-md"
                 width={100}
                 height={100}
               />
@@ -118,7 +125,7 @@ const FeedComponent: React.FC = () => {
   };
 
   return (
-    <div className="post-feed border rounded-large border-gray-300 p-5 flex flex-col gap-5 w-[60%] h-auto max-[768px]:w-full max-[640px]:w-full">
+    <div className="post-feed shadow-lg rounded-large border-gray-300 p-5 flex flex-col gap-5 w-[60%] h-auto max-[768px]:w-full max-[640px]:w-full">
       <div className="flex gap-3">
         <UserButton />
         <Textarea
@@ -147,10 +154,10 @@ const FeedComponent: React.FC = () => {
             />
           </div>
           <button
-            className="bg-slate-700 text-white px-10 py-2 font-Inconsolata rounded"
+            className="bg-black text-white font-bold px-10 py-2 font-Inconsolata rounded"
             onClick={handlePost}
           >
-            Post
+            POST
           </button>
         </div>
       </div>

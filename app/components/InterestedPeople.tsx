@@ -10,6 +10,7 @@ import {
   DropdownItem,
   Button,
   Avatar,
+  Progress,
 } from "@nextui-org/react";
 import { CircularProgress } from "@nextui-org/react";
 import Image from "next/image";
@@ -21,6 +22,7 @@ const InterestedPeople = () => {
   >([]);
   const [responseMessage, setResponseMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [value, setValue] = useState(0);
 
   const handleFindPeople = async () => {
     setIsLoading(true);
@@ -47,37 +49,43 @@ const InterestedPeople = () => {
   return (
     <>
       <HeroSection>
+        <h1>Find the people with similar interests</h1>
         <div className="flex flex-col gap-4 font-FiraSans">
-          <h1>Find the people with similar interests</h1>
-          <select
-            className="border p-2 px-10 bg-gray-300"
-            onChange={(e) => setInterest(e.target.value)}
-          >
-            <option value="">Select an interest</option>
-            {interests.map((interest, i) => (
-              <option value={interest} key={i}>
-                {interest}
-              </option>
-            ))}
-          </select>
+          <div className="flex gap-4">
+            <select
+              className="border p-2 px-10 bg-gray-300"
+              onChange={(e) => setInterest(e.target.value)}
+            >
+              <option value="">Select an interest</option>
+              {interests.map((interest, i) => (
+                <option value={interest} key={i}>
+                  {interest}
+                </option>
+              ))}
+            </select>
 
-          <button
-            onClick={handleFindPeople}
-            className="border p-2 text-white font-bold bg-black rounded-lg ease-in-out"
-          >
-            {"Find".toUpperCase()}
-          </button>
+            <button
+              onClick={handleFindPeople}
+              className="border p-2 text-white font-bold bg-black rounded-lg ease-in-out"
+            >
+              {"Find".toUpperCase()}
+            </button>
+          </div>
 
           {responseMessage && <p>{responseMessage}</p>}
           {isLoading ? (
             <div className="flex justify-center">
-              <CircularProgress label="loading..." color="secondary" />
+              <Progress
+                aria-label="Loading..."
+                isIndeterminate
+                size="sm"
+                className="max-w-md"
+              />
             </div>
           ) : (
             users.length > 0 && (
               <>
-                <h2>People with similar interests</h2>
-                <div className="flex flex-col gap-4 border p-4 rounded-md overflow-x-auto">
+                <div className="gap-4 border p-4 rounded-md overflow-x-auto">
                   {users.map((user, i) => (
                     <div key={i} className="flex gap-4">
                       {/* <img src={user.imageUrl} alt="" /> */}
