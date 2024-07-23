@@ -27,7 +27,7 @@ export async function POST(req: Request) {
       imageUrl: user.imageUrl,
     }));
 
-    console.log(`Filtered users: ${userNames}`);
+    console.log("Filtered users:", JSON.stringify(userNames));
 
     return NextResponse.json({ success: true, users: userNames });
   } catch (err) {

@@ -11,9 +11,13 @@ import {
   Button,
   Avatar,
   Progress,
+  Card,
+  CardHeader,
+  CardBody,
 } from "@nextui-org/react";
 import { CircularProgress } from "@nextui-org/react";
-import Image from "next/image";
+import { Image } from "@nextui-org/react";
+import UserCard from "./UserCard";
 
 const InterestedPeople = () => {
   const [interest, setInterest] = useState("");
@@ -48,17 +52,17 @@ const InterestedPeople = () => {
 
   return (
     <>
-      <HeroSection>
+      <HeroSection className="w-full">
         <h1>Find the people with similar interests</h1>
         <div className="flex flex-col gap-4 font-FiraSans">
           <div className="flex gap-4">
             <select
-              className="border p-2 px-10 bg-gray-300"
+              className="border p-2 px-10 rounded-md font-jetbrains bg-gray-300"
               onChange={(e) => setInterest(e.target.value)}
             >
               <option value="">Select an interest</option>
               {interests.map((interest, i) => (
-                <option value={interest} key={i}>
+                <option value={interest} key={i} className="p-4">
                   {interest}
                 </option>
               ))}
@@ -66,49 +70,39 @@ const InterestedPeople = () => {
 
             <button
               onClick={handleFindPeople}
-              className="border p-2 text-white font-bold bg-black rounded-lg ease-in-out"
+              className="border px-8 text-white font-bold bg-black rounded-lg ease-in-out"
             >
               {"Find".toUpperCase()}
             </button>
           </div>
 
           {responseMessage && <p>{responseMessage}</p>}
-          {isLoading ? (
-            <div className="flex justify-center">
-              <Progress
-                aria-label="Loading..."
-                isIndeterminate
-                size="sm"
-                className="max-w-md"
-              />
-            </div>
-          ) : (
-            users.length > 0 && (
-              <>
-                <div className="gap-4 border p-4 rounded-md overflow-x-auto">
-                  {users.map((user, i) => (
-                    <div key={i} className="flex gap-4">
-                      {/* <img src={user.imageUrl} alt="" /> */}
-                      <div className="grid place-content-center">
-                        <Avatar
-                          src={user.imageUrl}
-                          className="flex shrink-0"
-                          size="sm"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <p className="text-large flex flex-1">
-                          {user.fullName}
-                        </p>
-                        <p className="text-gray-500 text-sm">{user.email}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )
-          )}
         </div>
+        {isLoading ? (
+          <div className="flex justify-center">
+            <Progress
+              aria-label="Loading..."
+              isIndeterminate
+              size="sm"
+              className="max-w-md"
+            />
+          </div>
+        ) : (
+          users.length > 0 && (
+            <>
+              <div className="gap-4 p-4 rounded-md w-full grid grid-flow-col max-[600px]:grid-flow-row">
+                {users.map((user, i) => (
+                  <div key={i} className="w-full">
+                    <UserCard
+                      imageUrl={user.imageUrl}
+                      fullName={user.fullName}
+                    />
+                  </div>
+                ))}
+              </div>
+            </>
+          )
+        )}
       </HeroSection>
     </>
   );

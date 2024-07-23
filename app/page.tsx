@@ -24,27 +24,11 @@ import axios from "axios";
 export default function Home() {
   const { user } = useUser();
   const [selectedKeys, setSelectedKeys] = useState(new Set(["text"]));
-  const [peopleName, SetPeopleName] = useState("");
-
   const selectedValue = useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys]
   );
 
-  const handleSearchPeople = async (e: any) => {
-    SetPeopleName(e.target.value);
-    console.log(peopleName);
-
-    const res = await fetch("/api/findPeople", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        interest: peopleName,
-      }),
-    });
-  };
   return (
     <div>
       <Navbar isBordered>
@@ -54,7 +38,6 @@ export default function Home() {
           </NavbarItem>
         </NavbarContent>
         <NavbarContent justify="end">
-          <NavbarItem className="hidden lg:flex"></NavbarItem>
           <NavbarItem>
             <DropdownContent variant="bordered" color="black" />
           </NavbarItem>
@@ -83,17 +66,6 @@ export default function Home() {
             </Dropdown>
           </NavbarItem>
         </NavbarContent>
-        <div className="flex items-center">
-          <Input
-            type="text"
-            value={peopleName}
-            onChange={handleSearchPeople}
-            label="Find People"
-          />
-          <button className="relative right-20 border bg-black text-white font-jetbrains border-gray-400 px-3 rounded-md h-min">
-            Find
-          </button>
-        </div>
       </Navbar>
       <HeroSection className="mt-20">
         <FeedComponent />
