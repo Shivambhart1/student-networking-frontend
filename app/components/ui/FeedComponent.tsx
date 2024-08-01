@@ -139,7 +139,7 @@ const FeedComponent: React.FC = () => {
       </div>
       <hr />
       <div className="pt-5">
-        <div className="flex justify-between gap-4 items-center text-blue-600">
+        <div className="flex justify-between gap-4 items-center text-blue-600 max-[600px]:flex-col">
           <div>
             <input
               type="file"
@@ -154,7 +154,7 @@ const FeedComponent: React.FC = () => {
             />
           </div>
           <button
-            className="bg-black text-white font-bold px-10 py-2 font-Inconsolata rounded"
+            className="bg-black text-white font-bold px-10 py-2 font-Inconsolata relative rounded max-[600px]:w-full"
             onClick={handlePost}
           >
             POST

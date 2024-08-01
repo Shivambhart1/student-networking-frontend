@@ -18,6 +18,7 @@ import {
 import { CircularProgress } from "@nextui-org/react";
 import { Image } from "@nextui-org/react";
 import UserCard from "./UserCard";
+import { useUser } from "@clerk/nextjs";
 
 const InterestedPeople = () => {
   const [interest, setInterest] = useState("");
@@ -27,6 +28,7 @@ const InterestedPeople = () => {
   const [responseMessage, setResponseMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [value, setValue] = useState(0);
+  const { user } = useUser();
 
   const handleFindPeople = async () => {
     setIsLoading(true);
